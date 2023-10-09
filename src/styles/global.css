@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components { 
+
+.container {
+    @apply max-w-[1440px]  mx-auto px-[40px]
+    xl:px-[20px]
+}
+
+
+html {
+    @apply text-[22px] xl:text-[18px] md:text-[18px]
+}
+
+.chapter-block h1, .chapter-block h2 {
+    @apply text-2xl my-0 pt-7 font-bold
+}
+
+.chapter-block h3 {
+    @apply text-xl my-0 pt-4 font-bold
+}
+
+.chapter-block p {
+    @apply text-lg my-0 font-normal 
+}
+
+.chapter-block .remark-text p {
+    @apply text-sm my-0 font-medium opacity-70 pb-2
+}
+
+.chapter-block .remark {
+    @apply -translate-y-2 font-bold text-sm inline-block opacity-70 ml-1
+}
+
+.chapter-block .quote {
+    @apply max-w-[70%] pl-10 xl:max-w-[80%] md:max-w-none
+}
+
+.link-animation {
+    @apply inline-block relative overflow-hidden after:transition-all after:absolute after:bottom-0 after:h-[2px] after:rounded-full after:w-full after:bg-black after:left-[-100%] hover:after:left-0
+}
+
+}

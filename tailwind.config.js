@@ -17,30 +17,11 @@ export default {
 
       'sm': { 'max': '479px' },
     },
-    fontFamily: {
-      'nunito': ['Nunito', 'ui-serif'],
-    },
     extend: {
-      colors: {
-        'yellow': { 200: '#FFF4DE', 400: '#FEC955' },
-        'gray': { 300: '#AFAFAF', 400: '#F5F7FA' }
-      },
-      animation: {
-        'appear': 'appear 1s linear',
-        'disappear': 'disappear 0.5s linear',
-
-      },
-      keyframes: {
-        appear: {
-          '0%, 50%': { opacity: 0 },
-          '100%': { opacity: 1 },
-        },
-        disappear: {
-          '0%': { opacity: 1, display: 'inline-block' },
-          '100%': { opacity: 0, display: 'inline-block' },
-        }
+      boxShadow: {
+        'top-md': '0px 4px 6px 7px  rgb(0 0 0 / 0.1), 0px 2px 4px -2px rgb(0 0 0 / 0.1)',
       }
-    },
+    }
   },
   plugins: [],
 }

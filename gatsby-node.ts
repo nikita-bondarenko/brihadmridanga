@@ -1,224 +1,151 @@
-// import { CreatePagesArgs } from "gatsby"
-// import path from "path"
-// require("dotenv").config({
-//   path: `.env.${process.env.NODE_ENV}`,
-// })
+import { CreatePagesArgs } from "gatsby"
+import path from "path"
 
-// // Implement the Gatsby API “createPages”. This is called once the
-// // data layer is bootstrapped to let plugins create pages from data.
-// exports.createPages = async ({ graphql, actions, reporter }: CreatePagesArgs) => {
-//   const { createPage } = actions
+export type Breadcrumb = {
+    text: string,
+    to: string
+}
 
-//   // Query for markdown nodes to use in creating pages.
-//   const result = await graphql<Queries.AllBlogPostQuery>(
-//     `
-//     query AllBlogPost {
-//       allWpMenuItem(filter: {parentId: {eq: null}}, sort: {order: ASC}) {
-//         nodes {
-//             label
-//             url
-//             childItems {
-//                 nodes {
-//                     url
-//                     label
-//                     childItems {
-//                         nodes {
-//                             url
-//                             label
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-//     wpMenu(slug: {eq: "osnovnoe"}) {
-//       favicon {
-//         favikon {
-//           sourceUrl
-//         }
-//       }
-//     }
-//      site {
-//       siteMetadata {
-//         title
-//         url
-//       }
-//     }
-//       allFile {
-//         nodes {
-//           name
-//           publicURL
-//         }
-//       }
-//       allWpCommonSection {
-//         nodes {
-//           slug
-//           online {
-//             onlineTekst
-//             onlineTekstKnopki
-//             onlineZagolovok
-//           }
-//           cookies {
-//             fieldGroupName
-//             cookiesPolitikaKonfidenczialnosti {
-//               mediaItemUrl
-//             }
-//           }
-//           footer {
-//             footerAdresSajta
-//             footerContactsZagolovok
-//             footerKopirajt
-//             footerMenuZagolovok
-//             footerSocialRemarka
-//             footerSocialZagolovok
-//             footerContactsSpisok {
-//               footerContactsEstKommentarij
-//               footerContactsHref
-//               footerContactsKommentarij
-//               footerContactsTekst
-//             }
-            
-//             footerLogotip {
-//               altText
-//               sourceUrl
-//             }
-//             footerLogotipMobile {
-//               altText
-//               sourceUrl
-//             }
-//             footerPolitikaKonfidenczialnosti {
-//               mediaItemUrl
-//             }
-//             footerPublichnayaOferta {
-//               mediaItemUrl
-//             }
-//             footerSocialSpisok {
-//               footerSocialAdres
-//               footerSocialTekst
-//               footerSocialIkonka {
-//                 altText
-//                 sourceUrl
-//               }
-//             }
-//           }
-//           header {
-//             headerAdresSajta
-//             headerLogotipAlt
-//             headerTelefon
-//             headerLogotip {
-//               altText
-//               sourceUrl
-//             }
-//             headerLogotipMobile {
-//               altText
-//               sourceUrl
-//             }
-//           }
-         
-//         }
-//       }
-//         allWpBlog {
-//           nodes {
-//             slug
-//             blog {
-//               blogPostContentTekst
-//               blogPostHeroKratkoeOpisanie
-//               blogPostHeroZagolovok
-//               blogPostMediaTekstNadIzobrazheniem
-//               blogPostMediaTekstPodVideo
-//               blogPostHeroImageKompyuter1x {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostHeroImageKompyuter2x {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostHeroImageTelefon1x {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostHeroImageTelefon2x {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostMediaIzobrazhenieDlyaKompyuteraX1 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostMediaIzobrazhenieDlyaKompyuteraX2 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostMediaIzobrazhenieDlyaTelefonaX1 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostMediaIzobrazhenieDlyaTelefonaX2 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostMediaVideo {
-//                 mediaItemUrl
-//               }
-//               blogPostMediaZastavkaDlyaVideoKompyuter {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostMediaZastavkaDlyaVideoKompyuterKopiya {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostPreviewIzobrazhenieDlyaKompyuteraX1 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostPreviewIzobrazhenieDlyaKompyuteraX2 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostPreviewIzobrazhenieDlyaTelefonaX1 {
-//                 altText
-//                 sourceUrl
-//               }
-//               blogPostPreviewIzobrazhenieDlyaTelefonaX2 {
-//                 altText
-//                 sourceUrl
-//               }
-//             }
-//           }
-//         }
-//       }
-//     `
-//   )
+exports.createPages = async ({ graphql, actions, reporter }: CreatePagesArgs) => {
+    const { createPage } = actions
 
-//   // Handle errors
-//   if (result.errors || !result) {
-//     reporter.panicOnBuild(`Error while running GraphQL query.`)
-//     return
-//   }
+    const result = await graphql<Queries.TemplatePageQuery>(
+        `
+    query TemplatePage {
+        allWpCategory {
+            nodes {
+              id
+              posts {
+                nodes {
+                  slug
+                  date
+                  id
+                }
+              }
+            }
+          }
+        wpCategory(slug: {eq: "avtory"}) {
+            wpChildren {
+              nodes {
+                name
+                slug
+                id
+                wpChildren {
+                  nodes {
+                    id
+                    name
+                    slug
+                    posts {
+                      nodes {
+                        slug
+                        title
+                        id
+                        date(formatString: "")
+                        meta {
+                          metaTitle
+                          metaDescription
+                        }
+                        post {
+                            postMassiv {
+                              blokImeetRemarki
+                              originalRemarka
+                              originalTekst
+                              translationRemarka
+                              translationTekst
+                            }
+                          }
+                      }
+                    }
+                    description
+                    order {
+                      poryadkovyjNomer
+                    }
+                  }
+                }
+                description
+                order {
+                  poryadkovyjNomer
+                }
+              }
+            }
+            id
+          }
+        wpMenu(slug: {eq: "osnovnoe"}) {
+            favicon {
+              faviconIkonka {
+                sourceUrl
+              }
+            }
+          }
+          site {
+            siteMetadata {
+              url
+            }
+          }
+      }
+    `
+    )
 
-//   // Create pages for each markdown file.
-//   const blogPostTemplate = path.resolve(`./src/templates/blogPost.tsx`)
+    // Handle errors
+    if (result.errors || !result) {
+        reporter.panicOnBuild(`Error while running GraphQL query.`)
+        return
+    }
+
+    // Create pages for each markdown file.
+    const bookTemplate = path.resolve(`./src/templates/book.tsx`)
+    const chapterTemplate = path.resolve(`./src/templates/chapter.tsx`)
+    const authorTemplate = path.resolve(`./src/templates/author.tsx`)
 
 
-//   result.data?.allWpBlog.nodes.forEach((node) => {
-//     createPage({
-//       path:`/blog/${node.slug}`,
-//       component: blogPostTemplate,
-//       // In your blog post template's graphql query, you can use pagePath
-//       // as a GraphQL variable to query for data from the markdown file.
-//       context: {
-//         menuItems: result.data?.allWpMenuItem.nodes,
-//         site: result.data?.site,
-//         allFiles:  result.data?.allFile?.nodes,
-//         slug: 'blogPost',
-//         commonSections: result.data?.allWpCommonSection.nodes,
-//         allPosts: result.data?.allWpBlog.nodes,
-//         post: node,
-//         url: process.env.BASE_URL || 'http://localhost:9000',
-//         favicon: result.data?.wpMenu?.favicon?.favikon?.sourceUrl
-//       },
-//     })
-//   })
-// }
+
+    result.data?.wpCategory?.wpChildren?.nodes.forEach((node) => {
+        createPage({
+            path: `/${node.slug}`,
+            component: authorTemplate,
+            context: {
+                item: node,
+                favicon: result?.data?.wpMenu?.favicon?.faviconIkonka?.sourceUrl,
+                url: result?.data?.site?.siteMetadata?.url
+            }
+        })
+
+        node?.wpChildren?.nodes?.forEach((book) => {
+
+            const breadcrumbs : Breadcrumb[] = [{text: node.name || '', to: `/${node.slug}`}]
+            createPage({
+                path: `/${node.slug}/${book?.slug}/`,
+                component: bookTemplate,
+                context: {
+                    item: book,
+                    favicon: result?.data?.wpMenu?.favicon?.faviconIkonka?.sourceUrl,
+                    url: result?.data?.site?.siteMetadata?.url,
+                    breadcrumbs
+                }
+            })
+
+            book.posts?.nodes?.forEach(chapter => {
+
+                const breadcrumbs : Breadcrumb[] = [{text: node.name || '', to: `/${node.slug}`}, {text: book.name || '', to: `/${node.slug}/${book?.slug}/`}]
+
+                const currentBook = result.data?.allWpCategory?.nodes?.find(item => item.id === book.id)
+
+                createPage({
+                    path: `/${node.slug}/${book?.slug}/${chapter.slug}`,
+                    component: chapterTemplate,
+                    context: {
+                        item: chapter,
+                        favicon: result?.data?.wpMenu?.favicon?.faviconIkonka?.sourceUrl,
+                        url: result?.data?.site?.siteMetadata?.url,
+                        breadcrumbs,
+                        brothers: currentBook?.posts?.nodes?.sort((a,b) => a.date < b.date ? -1 : 1)
+                    }
+                })
+            })
+        })
+
+    
+    })
+
+
+}

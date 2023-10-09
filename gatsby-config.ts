@@ -2,7 +2,7 @@ import type { GatsbyConfig } from "gatsby"
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    siteUrl: `https://brihadmridanga.ru`,
+    url: process.env.BASE_URL || `https://brihadmridanga.ru`,
     title: `Brihad Mridanga`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
@@ -12,7 +12,7 @@ const config: GatsbyConfig = {
   plugins: [{
     resolve: 'gatsby-source-wordpress',
     options: {
-      "url":process.env.GATSBY_GRAPHQL_ENDPOINT || "https://admin.brihadmridanga.na4u.ru/graphql"
+      "url":process.env.GATSBY_GRAPHQL_ENDPOINT || "https://admin.brihadmridanga.ru/graphql"
     }
   },
   {
