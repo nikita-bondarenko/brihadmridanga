@@ -13,17 +13,17 @@ const IndexPage = ({ data }: PageProps<Queries.IndexPageQuery>) => {
     <section className="container" >
       <h1 className="text-2xl font-bold mx-0 uppercase w-fit">Труды гаудия-вайшнавов на русском</h1>
       {data?.wpCategory?.wpChildren?.nodes?.sort((a,b) => a.order.poryadkovyjNomer < b.order.poryadkovyjNomer ? -1 : 1)?.map((author, index) => <div className="mt-5" key={author.id}>
-        <Link className="w-fit" to={`/${author.slug}`}>
+        <Link className="w-fit link-animation-opacity" to={`/${author.slug}`}>
           <h2 className="text-lg font-bold uppercase  w-fit">{author.name}</h2>
         </Link>
         <ul className="list-none  mt-2">
           {author?.wpChildren?.nodes.sort((a,b) => a.order.poryadkovyjNomer < b.order.poryadkovyjNomer ? -1 : 1).map((book, index) => <li key={index}>
-            <Link className="w-fit" to={`/${author.slug}/${book.slug}`}>
+            <Link className="w-fit link-animation-opacity" to={`/${author.slug}/${book.slug}`}>
               <h3 className="text-md font-medium  w-fit">{book.name}</h3>
             </Link>
-            <ul className="list-none pl-5">
+            <ul className="list-none pl-3">
               {book.posts?.nodes.sort((a,b) => a.date < b.date ? -1 : 1)?.map((chapter, index) => <li key={chapter.slug}>
-                <Link className="text-sm mt-1" to={`/${author.slug}/${book.slug}/${chapter.slug}`}>{chapter.title}</Link>
+                <Link className="text-sm mt-1 link-animation-opacity" to={`/${author.slug}/${book.slug}/${chapter.slug}`}>{chapter.title}</Link>
               </li>)}
             </ul>
           </li>)}

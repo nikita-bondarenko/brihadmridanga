@@ -38,7 +38,7 @@ export default function Layout({ children }: { children: ReactNode | ReactElemen
                     </ul>
                 </nav>
             </header>
-            <main className='md:mt-10 '>
+            <main className='md:mt-10 flex-grow flex flex-col'>
                 {children}
             </main>
             <footer className=' py-5 border-t-2 border-black md:py-6 md:mb-16 mt-auto '>
@@ -46,7 +46,6 @@ export default function Layout({ children }: { children: ReactNode | ReactElemen
                 <a target='_blank' className='  text-sm font-medium link-animation' href="https://mailto:naradadasosmi@gmail.com">naradadasosmi@gmail.com</a>
                 <a target='_blank'  className='  text-sm font-medium link-animation' href="https://t.me/+pp7nefyEpaAyMjcy">telegram channel</a>
                 </div>
-                
             </footer>
             </div>
     )
