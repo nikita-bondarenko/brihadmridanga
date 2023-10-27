@@ -8,7 +8,6 @@ export const Head = ({ data }: PageProps<Queries.IndexPageQuery>) => {
 }
 
 const IndexPage = ({ data }: PageProps<Queries.IndexPageQuery>) => {
-  console.log(data?.wpCategory?.wpChildren)
   return (
     <section className="container" >
       <h1 className="text-2xl font-bold mx-0 uppercase w-fit">Труды гаудия-вайшнавов на русском</h1>

@@ -24,10 +24,10 @@ export default function book(data: BookProps) {
         <section className="container" >
             <Breadcrumbs items={data?.pageContext?.breadcrumbs}></Breadcrumbs>
             <h1 className="text-2xl font-bold mb-7 uppercase">{data?.pageContext?.item?.name}</h1>
-            <ul className="list-none">
-                {data?.pageContext?.item?.posts?.nodes.sort((a, b) => a.date < b.date ? -1 : 1).map((chapter, index) => <li key={index}>
-                    <Link className='link-animation-opacity' to={`${data?.path}${chapter.slug}`}>
-                        <h3 className="text-lg font-medium mb-2">{chapter.title}</h3>
+            <ul className="list-none w-fit">
+                {data?.pageContext?.item?.posts?.nodes.sort((a, b) => a.date < b.date ? -1 : 1).map((chapter, index) => <li className='w-fit' key={index}>
+                    <Link className='link-animation-opacity w-fit' to={`${data?.path}${chapter.slug}`}>
+                        <h3 className="text-lg font-medium mb-2 w-fit">{chapter.title}</h3>
                     </Link>
                 </li>)}
             </ul>
