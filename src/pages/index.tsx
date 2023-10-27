@@ -1,6 +1,7 @@
 import * as React from "react"
 import { graphql, Link, type HeadFC, type PageProps } from "gatsby"
 import Seo from "../components/seo/Seo"
+import LoadWhenInView from "../components/LoadWhenInView/LoadWhenInView"
 
 export const Head = ({ data }: PageProps<Queries.IndexPageQuery>) => {
   return (
@@ -10,6 +11,7 @@ export const Head = ({ data }: PageProps<Queries.IndexPageQuery>) => {
 const IndexPage = ({ data }: PageProps<Queries.IndexPageQuery>) => {
   return (
     <section className="container" >
+      <LoadWhenInView>
       <h1 className="text-2xl font-bold mx-0 uppercase w-fit">Труды гаудия-вайшнавов на русском</h1>
       {data?.wpCategory?.wpChildren?.nodes?.sort((a,b) => a.order.poryadkovyjNomer < b.order.poryadkovyjNomer ? -1 : 1)?.map((author, index) => <div className="mt-5" key={author.id}>
         <Link className="w-fit link-animation-opacity" to={`/${author.slug}`}>
@@ -28,6 +30,7 @@ const IndexPage = ({ data }: PageProps<Queries.IndexPageQuery>) => {
           </li>)}
         </ul>
       </div>)}
+      </LoadWhenInView>
     </section>
   )
 }
